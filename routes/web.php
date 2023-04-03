@@ -15,19 +15,13 @@ use App\Http\Controllers\dashboardController;
 |
 */
 
-Route::get('/', function () {
-    return view('login');
-});
-
-Route::post('login', [loginController::class, 'Auth'])
-// ->middleware("throttle:3,2")
-;
+// Route::post('login', [loginController::class, 'Auth'])->middleware("throttle:3,2");
 Route::get('register', [registerController::class, 'index']);
 Route::post('send', [registerController::class, 'register']);
+Route::get('/', [loginController::class, 'index']);
 Route::get('out', [loginController::class, 'out']);
+Route::post('login', [loginController::class, 'Auth']);
 
-
-Route::group(['middleware' => 'auth'], function() {
-    Route::get('dashboard', [dashboardController::class, 'dashboard']);
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/dashboard', [dashboardController::class, 'dashboard'])->name('login');
 });
-

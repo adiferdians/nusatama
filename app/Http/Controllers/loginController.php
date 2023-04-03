@@ -4,27 +4,38 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class loginController extends Controller
 {
+
+    public function index(){
+        return view('auth.login');
+    }
+
     public function Auth(Request $request){
 
-        $request->validate([
-            'email' => 'required',
-            'password' => 'required',
-        ]);
-   
+        $date = Carbon::now()->format('H:i:s');
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             session()->put('name', $user->name);
+            $token =  $user->createToken($date)->accessToken;
+            
+            $response = [
+                'user'  => $user,
+                'token' => $token,
+            ];
 
-            return redirect()->intended('dashboard')
-            ->withSuccess('Signed in');
+            return response()->json([
+                'OUT_STAT' => true,
+                'MESSAGE' => 'Berhasil Login!',
+                'DATA' => $response,
+            ]);
+        }else{
+            return response()->json(['message' => 'Invalid login credentials']);
         }
-  
-        return redirect("/")->withErrors('Login details are not valid');
     }
 
     public function out(){

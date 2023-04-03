@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Str;
 
 class registerController extends Controller
 {
@@ -24,6 +25,7 @@ class registerController extends Controller
         $data->name = $request->name;
         $data->email = $request->email;
         $data->password = bcrypt($request->password);
+        $data->remember_token = Str::random(40);
         $data->save();
 
         return redirect("/")->withSuccess('Success create account!');

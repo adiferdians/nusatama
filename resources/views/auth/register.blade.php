@@ -9,14 +9,14 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Login</title>
+    <title>SB Admin 2 - Register</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ URL::asset('/assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <!-- Custom styles for this template-->
     <link href="{{ URL::asset('/assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
@@ -39,34 +39,35 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Register</h1>
                                     </div>
-                                    <form class="user" action="/login" method="POST">
+                                    <form class="user" action="/send" method="POST">
                                     @csrf
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user"
+                                                name="name" aria-describedby="emailHelp"
+                                                value="Admin" placeholder="Name" >
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-user"
                                                 name="email" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address...">
+                                                value="admin@gmail.com" placeholder="Enter Email Address...">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
-                                                name="password" placeholder="Password">
+                                                name="password" value="sapiii" placeholder="Password" id="pass">
                                         </div>
                                         <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember
-                                                    Me</label>
-                                            </div>
+                                            <input type="password" class="form-control form-control-user"
+                                                name="password2" value="sapiii" placeholder="Re-Type Password" id="rePass">
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-user btn-block">
-                                            Login
-                                        </button>
-                                        <hr>
-                                        <a href="/register" class="btn btn-google btn-user btn-block">
+                                        <button type="submit" id="send" class="btn btn-primary btn-user btn-block">
                                             Register
+                                        </button>
+                                        <a href="/" class="btn btn-danger btn-user btn-block">
+                                            back To Login
                                         </a>
-                                        <br>
+                                        <hr>
                                         @if ($errors->any())
                                             <div class="alert alert-danger">
                                                 <ul>
@@ -90,7 +91,11 @@
     </div>
 
     <script>
-
+        $('#send').on('click', function(){
+            const $pass = $('#pass').val();
+            const $repass = $('#rePass').val();
+            console.log($pass, $repass);
+        });
     </script>
 
     <!-- Bootstrap core JavaScript-->
