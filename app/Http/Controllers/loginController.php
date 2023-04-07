@@ -10,11 +10,13 @@ use Illuminate\Support\Facades\Auth;
 class loginController extends Controller
 {
 
-    public function index(){
+    public function index()
+    {
         return view('auth.login');
     }
 
-    public function Auth(Request $request){
+    public function Auth(Request $request)
+    {
 
         $date = Carbon::now()->format('H:i:s');
         $credentials = $request->only('email', 'password');
@@ -22,7 +24,7 @@ class loginController extends Controller
             $user = Auth::user();
             session()->put('name', $user->name);
             $token =  $user->createToken($date)->accessToken;
-            
+
             $response = [
                 'user'  => $user,
                 'token' => $token,
@@ -30,17 +32,18 @@ class loginController extends Controller
 
             return response()->json([
                 'OUT_STAT' => true,
-                'MESSAGE' => 'Berhasil Login!',
+                'MESSAGE' => 'You have successfully logged in to your account.',
                 'DATA' => $response,
             ]);
-        }else{
-            return response()->json(['message' => 'Invalid login credentials']);
+        } else {
+            return response()->json(['MESSAGE' => 'Invalid login credentials']);
         }
     }
 
-    public function out(){
+    public function out()
+    {
         Auth::logout();
-  
+
         return Redirect('/');
     }
 }

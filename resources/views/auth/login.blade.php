@@ -46,13 +46,10 @@
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control form-control-user"
-                                            value="admin" id="email" aria-describedby="emailHelp"
-                                            placeholder="Enter Email Address...">
+                                        <input type="text" class="form-control form-control-user" value="admin" id="email" aria-describedby="emailHelp" placeholder="Enter Email Address...">
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control form-control-user"
-                                            value="sapiii" id="password" placeholder="Password">
+                                        <input type="password" class="form-control form-control-user" value="sapiii" id="password" placeholder="Password">
                                     </div>
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox small">
@@ -70,13 +67,13 @@
                                     </a>
                                     <br>
                                     @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            <ul>
-                                                @foreach ($errors->all() as $error)
-                                                    <li>{{ $error }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
                                     @endif
                                 </div>
                             </div>
@@ -93,53 +90,50 @@
 
 
 <script>
-        $('#submit').on('click', function(submit){
-            const email = $('#email').val();
-            const password = $('#password').val();
+    $('#submit').on('click', function(submit) {
+        const email = $('#email').val();
+        const password = $('#password').val();
 
-            axios.post('/login', {
-            email, 
+        axios.post('/login', {
+            email,
             password
-            }).then(response => {
-                if (response.data.OUT_STAT) {
-                    localStorage.setItem('token', response.data.token);
-                    Swal.fire({
-                        title: 'Success...',
-                        position: 'top-end',
-                        icon: 'success',
-                        text: 'Sukses Login Berhasil!',
-                        showConfirmButton: false,
-                        width: '400px',
-                        timer: 1000,
-                        customClass: {
-                            icon: 'my-custom-icon-class'
-                        }
-                    }).then((result) => {
-                        window.location.href = "dashboard";
-                    })
-                } else {
-                    Swal.fire({
-                        title: 'Failed...',
-                        text: response.data.message,
-                        position: 'top-end',
-                        icon: 'error',
-                        showConfirmButton: false,
-                        timer: 1000,
-                        width: '400px',
-                    })
-                }
-            });
+        }).then(response => {
+            if (response.data.OUT_STAT) {
+                localStorage.setItem('token', response.data.token);
+                Swal.fire({
+                    text: response.data.MESSAGE,
+                    position: 'top-end',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1000,
+                    customClass: {
+                        icon: 'my-custom-icon-class'
+                    }
+                }).then((result) => {
+                    window.location.href = "dashboard";
+                })
+            } else {
+                Swal.fire({
+                    text: response.data.MESSAGE,
+                    position: 'top-end',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 1000,
+                    width: '400px',
+                })
+            }
         });
-    </script>
+    });
+</script>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="{{ URL::asset('/assets/vendor/jquery/jquery.min.js' ) }}"></script>
-    <script src="{{ URL::asset('/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' ) }}"></script>
+<!-- Bootstrap core JavaScript-->
+<script src="{{ URL::asset('/assets/vendor/jquery/jquery.min.js' ) }}"></script>
+<script src="{{ URL::asset('/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' ) }}"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="{{ URL::asset('/assets/vendor/jquery-easing/jquery.easing.min.js' ) }}"></script>
+<!-- Core plugin JavaScript-->
+<script src="{{ URL::asset('/assets/vendor/jquery-easing/jquery.easing.min.js' ) }}"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="{{ URL::asset('/assets/js/sb-admin-2.min.js' ) }}"></script>
+<!-- Custom scripts for all pages-->
+<script src="{{ URL::asset('/assets/js/sb-admin-2.min.js' ) }}"></script>
 
 </html>
