@@ -54,6 +54,14 @@ class CertificateController extends Controller
         ]);
     }
 
+    public function detil($id)
+    {
+        $certificate = certificate::where('id', $id)->get();
+        return view('content.certificate.certificateView', [
+            'certificate' => $certificate
+        ]);
+    }
+
     public function delete($id)
     {
         $data = new certificate();
