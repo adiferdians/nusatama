@@ -24,6 +24,7 @@
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <!-- Custom styles for this template-->
     <link href="{{ URL::asset('/assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('/assets/css/certificate.css') }}" rel="stylesheet">
 
 </head>
 
@@ -73,40 +74,12 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Interface
-            </div>
-
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item @yield('certificate')">
                 <a class="nav-link" href="/certificate" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Certificate</span>
                 </a>
-            </li>
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item @yield('portofolio')">
-                <a class="nav-link" href="/portofolio" aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Portofolio</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Addons
-            </div>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Skills</span></a>
             </li>
 
             <!-- Divider -->

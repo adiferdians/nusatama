@@ -98,34 +98,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="card shadow mb-4" id="sapi">
-                        <div class="card-header py-3" style="justify-content: space-between; display: flex;">
-                            <div>
-                                <h6 class="m-0 font-weight-bold text-primary">Data User</h6>
-                            </div>
-                            <div>
-                                <button type="button" class="btn btn-primary" id="tambahData">
-                                    Tambah Data
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card shadow mb-4" id="sapi">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Data User</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
                 <!-- /.container-fluid -->
 

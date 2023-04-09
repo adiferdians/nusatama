@@ -1,0 +1,54 @@
+
+.period{
+    display: flex;
+    justify-content: space-around;
+}
+
+.start, .end{
+    display: block;
+    white-space: pre-wrap;
+}
+
+.certif {
+    padding-top: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 50px;
+}
+.contentCert {
+    margin: 30px;
+    padding-top: 40px;
+    border: 20px solid rgb(29, 120, 218);
+    width: 750px;
+    height: 563px;
+    display: table-cell;
+    vertical-align: middle;
+}
+.logo {
+    padding-left: 20px;
+    color: rgb(43, 98, 158);
+}
+
+.marquee {
+    color: rgb(70, 140, 215);
+    font-size: 48px;
+    margin: 10px;
+}
+.assignment {
+    margin: 20px;
+}
+.person {
+    border-bottom: 2px solid black;
+    font-size: 32px;
+    font-style: italic;
+    margin: 20px auto;
+    width: 400px;
+}
+.reason {
+    margin: 20px;
+}
+
+.back{
+    padding: 30px;
+}

@@ -1,6 +1,6 @@
 @extends('layout.master')
 @section('content')
-@section('dasboard', 'active')
+@section('certificate', 'active')
 
 <div class="container-fluid">
 
@@ -54,7 +54,7 @@
                         <tr>
                             <td>
                                 <button class="btn btn-primary" title="Edit" id="update" onclick="updCertificate({{$cert->id}})"><i class="fas fa-pencil-ruler"></i></button>
-                                <button class="btn btn-info" title="Detil" id="detil"><i class="fas fa-eye"></i></button>
+                                <button class="btn btn-info" title="Detil" id="detil" onclick="detCertificate({{$cert->id}})"><i class="fas fa-eye"></i></button>
                                 <button class="btn btn-danger" title="Hapus" onclick="delCertificate({{$cert->id}})"><i class="fas fa-trash-alt"></i></button>
                             </td>
                             <td>{{$cert->id}}</td>
@@ -126,6 +126,10 @@
             .catch(function(error) {
                 console.log(error);
             });
+    }
+
+    function detCertificate(id) {
+        window.location.href = "/certificate/detil/"+id;
     }
 </script>
 
