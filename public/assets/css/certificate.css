@@ -10,6 +10,7 @@
 }
 
 .certif {
+    padding-top: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -46,4 +47,8 @@
 }
 .reason {
     margin: 20px;
+}
+
+.back{
+    padding: 30px;
 }

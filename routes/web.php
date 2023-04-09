@@ -30,6 +30,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/certificate/send', [CertificateController::class, 'send']);
     Route::get('/certificate/update/{id}', [CertificateController::class, 'getUpdate']);
     Route::get('/certificate/detil/{id}', [CertificateController::class, 'detil']);
+    Route::get('/certificate/qrcode', [CertificateController::class, 'generateQrCode'])->name('generateQrcode');
     Route::post('/certificate/sendUpdate/{id}', [CertificateController::class, 'send']);
     Route::post('/certificate/delete/{id}', [CertificateController::class, 'delete']);
 });

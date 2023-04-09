@@ -1,10 +1,10 @@
 @extends('layout.master')
 @section('content')
-@section('dasboard', 'active')
+@section('certificate', 'active')
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4" style="padding-right: 20px;">
     <h1 class="h3 mb-0 text-gray-800"></h1>
-    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+    <a href="/certificate/qrcode" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="QRcode">
         <i class="fas fa-download fa-sm text-white-50"></i> Generate QRcode</a>
 </div>
 @foreach($certificate as $cert)
@@ -43,5 +43,18 @@
         </div>
     </center>
 </div>
+<div class="back">
+    <button class="btn btn-secondary" id="back"><i class="fa fa-arrow-left"></i> Kembali </a></button>
+</div>
 @endforeach
+<script>
+    $('#back').click(function () { 
+        window.location.href = "/certificate";
+     })
+
+    //  $('#QRcode').click(function () { 
+    //     axios.get('/certificate/qrcode/'+id)
+    //     })
+</script>
+
 @endsection
