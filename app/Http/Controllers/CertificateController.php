@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\certificate;
-use BaconQrCode\Renderer\Image\Png;
-use BaconQrCode\Renderer\ImageRenderer;
-use BaconQrCode\Writer;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 
 
@@ -76,22 +74,19 @@ class CertificateController extends Controller
 
     public function generateQrCode()
     {
-        // Menyiapkan QR code renderer
-        $renderer = new ImageRenderer(
-            new Png(),
-            new \BaconQrCode\Renderer\RendererStyle\RendererStyle(400),
-            new \BaconQrCode\Renderer\Color\Rgb(0, 0, 0),
-            new \BaconQrCode\Renderer\Color\Rgb(255, 255, 255)
-        );
+        // Generate QR Code
+        $qrCode = QrCode::format('png')
+            ->size(500)
+            ->errorCorrection('H')
+            ->generate("sapi");
 
-        // Menyiapkan QR code writer
-        $writer = new Writer($renderer);
+        // Set response headers
+        $headers = [
+            'Content-Type' => 'image/png',
+            'Content-Disposition' => 'attachment; filename=qr-code.png',
+        ];
 
-        // Menghasilkan QR code
-        $qrCode = $writer->writeString("sapi");
-
-        // Menampilkan QR code ke browser
-        header('Content-Type: image/png');
-        echo $qrCode;
+        // Download QR Code
+        return response()->download($qrCode, 'qr-code.png', $headers);
     }
 }
