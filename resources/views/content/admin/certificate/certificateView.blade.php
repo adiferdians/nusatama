@@ -51,10 +51,6 @@
     $('#back').click(function () { 
         window.location.href = "/certificate";
      })
-
-    //  $('#QRcode').click(function () { 
-    //     axios.get('/certificate/qrcode/'+id)
-    //     })
 </script>
 
 @endsection
