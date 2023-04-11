@@ -25,7 +25,7 @@ Route::get('out', [loginController::class, 'out']);
 Route::post('login', [loginController::class, 'Auth']);
 
 Route::get('verifikasi', [verificationController::class, 'index']);
-Route::get('verifikasi/{data}', [verificationController::class, 'find']);
+Route::post('verifikasi/{data}', [verificationController::class, 'find']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/dashboard', [dashboardController::class, 'dashboard'])->name('login');
