@@ -5,6 +5,7 @@ use App\Http\Controllers\loginController;
 use App\Http\Controllers\registerController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\CertificateController;
+use App\Http\Controllers\verificationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,6 +23,8 @@ Route::post('send', [registerController::class, 'register']);
 Route::get('/', [loginController::class, 'index']);
 Route::get('out', [loginController::class, 'out']);
 Route::post('login', [loginController::class, 'Auth']);
+
+Route::get('verification', [verificationController::class, 'index']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/dashboard', [dashboardController::class, 'dashboard'])->name('login');

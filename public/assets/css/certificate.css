@@ -1,10 +1,10 @@
-
-.period{
+.period {
     display: flex;
     justify-content: space-around;
 }
 
-.start, .end{
+.start,
+.end {
     display: block;
     white-space: pre-wrap;
 }
@@ -49,6 +49,16 @@
     margin: 20px;
 }
 
-.back{
+.back {
     padding: 30px;
+}
+
+.contentVerif {
+    display: flex;
+}
+
+@media (max-width: 767.98px) {
+    .contentVerif {
+        display: block;
+    }
 }
