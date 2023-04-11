@@ -27,7 +27,6 @@
     <div id="wrapper">
         <div id="content-wrapper" class="d-flex flex-column">
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
 
                     <!-- Nav Item - Search Dropdown (Visible Only XS) -->
@@ -191,46 +190,45 @@
                 </ul>
             </nav>
             <div class="contentVerif">
-                <div class="col-xl-6 col-md-6 mb-4">
+                <div class="col-xl-4 col-md-6 mb-4">
                     <div class="container-fluid">
-                        <!-- Page Heading -->
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
                             <h1 class="h3 mb-0 text-gray-800">Masukan Data Anda</h1>
                         </div>
-                        <div class="card shadow mb-4" id="sapi">
+                        <div class="card shadow mb-4">
                             <div class="card-body">
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                    <input type="text" class="form-control" placeholder="Nama" id="nama" aria-label="Nama" aria-describedby="basic-addon2">
                                     <div class="input-group-append">
                                         <span class="input-group-text" id="basic-addon2"><i class="fa fa-user"></i></span>
                                     </div>
                                 </div>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                    <input type="text" class="form-control" placeholder="Nomor Sertifikat" id="nomor" aria-label="Nomor Sertifikat" aria-describedby="basic-addon2">
                                     <div class="input-group-append">
                                         <span class="input-group-text" id="basic-addon2"><i class="fa fa-id-card"></i></span>
                                     </div>
                                 </div>
                                 <div>
-                                    <button class="btn btn-primary">Verifikasi</button>
+                                    <button class="btn btn-primary" id="send">Verifikasi</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-6 col-md-6 mb-4">
+                <div class="col-xl-8 col-md-6 mb-4" id="dataPeserta">
                     <div class="container-fluid">
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
                             <h1 class="h3 mb-0 text-gray-800">Informasi Peserta</h1>
                         </div>
                         <div class="card shadow mb-4" id="sapi">
                             <div class="card-body">
-                                <table class="table table-responsive" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-responsive" id="dataTable" cellspacing="0">
                                     <thead class="thead-light">
                                         <tr>
-                                            <th>Nama</th>
-                                            <th>Tipe Trining</th>
-                                            <th>Title</th>
+                                            <th>Nama Peserta</th>
+                                            <th>Tipe Training</th>
+                                            <th>Title Training</th>
                                             <th>Nomor Sertifikat</th>
                                             <th>Training Mulai</th>
                                             <th>Training Selesai</th>
@@ -238,15 +236,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>{{$certificate->name}}</td>
-                                            <td>{{$certificate->type}}</td>
-                                            <td>{{$certificate->title}}</td>
-                                            <td>{{$certificate->number}}</td>
-                                            <td>{{$certificate->start}}</td>
-                                            <td>{{$certificate->end}}</td>
-                                            <td>{{$certificate->date}}</td>
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -257,5 +246,62 @@
         </div>
     </div>
 </body>
+<script>
+    $('#send').click(function() {
+        let nama = $('#nama').val();
+        let nomor = $('#nomor').val();
+
+        axios.post(`/verifikasi/${nomor}`, {
+            nama,
+            nomor
+        }).then((response) => {
+            if (response.data.OUT_STAT) {
+                Swal.fire({
+                    title: response.data.MESSAGE,
+                    position: 'top-end',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    width: '400px',
+                    timer: 1500
+                }).then(function() {
+                    var data = response.data.DATA;
+                    var tableBody = $('#dataTable tbody');
+                    tableBody.empty();
+                    var row = '<tr>' +
+                        '<td>' + data.name + '</td>' +
+                        '<td>' + data.type + '</td>' +
+                        '<td>' + data.title + '</td>' +
+                        '<td>' + data.number + '</td>' +
+                        '<td>' + data.start + '</td>' +
+                        '<td>' + data.end + '</td>' +
+                        '<td>' + data.date + '</td>' +
+                        '</tr>';
+                    tableBody.append(row);
+                })
+            } else {
+                Swal.fire({
+                    title: response.data.MESSAGE,
+                    position: 'top-end',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    width: '400px',
+                    timer: 1500
+                }).then(function () { 
+                    var tableBody = $('#dataTable tbody');
+                    tableBody.empty();
+                 })
+            }
+        }).catch((err) => {
+            Swal.fire({
+                position: 'top-end',
+                text: err,
+                icon: 'error',
+                showConfirmButton: false,
+                width: '400px',
+                timer: 1500
+            })
+        })
+    })
+</script>
 
 </html>
