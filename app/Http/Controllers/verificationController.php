@@ -14,4 +14,14 @@ class verificationController extends Controller
             'certificate' => $certificate
         ]);
     }
+
+    public function find($number){
+        $certificate = certificate::where('number', $number)->first();
+
+        return response()->json([              
+        'OUT_STAT' => true,
+        'MESSAGE' => 'Success Get Data.',
+        'DATA' => $certificate
+        ]);
+    }
 }

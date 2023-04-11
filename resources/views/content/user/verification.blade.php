@@ -27,7 +27,6 @@
     <div id="wrapper">
         <div id="content-wrapper" class="d-flex flex-column">
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
 
                     <!-- Nav Item - Search Dropdown (Visible Only XS) -->
@@ -191,34 +190,33 @@
                 </ul>
             </nav>
             <div class="contentVerif">
-                <div class="col-xl-6 col-md-6 mb-4">
+                <div class="col-xl-4 col-md-6 mb-4">
                     <div class="container-fluid">
-                        <!-- Page Heading -->
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
                             <h1 class="h3 mb-0 text-gray-800">Masukan Data Anda</h1>
                         </div>
                         <div class="card shadow mb-4" id="sapi">
                             <div class="card-body">
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                    <input type="text" class="form-control" placeholder="Nama" aria-label="Nama" aria-describedby="basic-addon2">
                                     <div class="input-group-append">
                                         <span class="input-group-text" id="basic-addon2"><i class="fa fa-user"></i></span>
                                     </div>
                                 </div>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                    <input type="text" class="form-control" placeholder="Nomor Sertifikat" aria-label="Nomor Sertifikat" aria-describedby="basic-addon2">
                                     <div class="input-group-append">
                                         <span class="input-group-text" id="basic-addon2"><i class="fa fa-id-card"></i></span>
                                     </div>
                                 </div>
                                 <div>
-                                    <button class="btn btn-primary">Verifikasi</button>
+                                    <button class="btn btn-primary" id="send">Verifikasi</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-6 col-md-6 mb-4">
+                <div class="col-xl-8 col-md-6 mb-4" id="dataPeserta">
                     <div class="container-fluid">
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
                             <h1 class="h3 mb-0 text-gray-800">Informasi Peserta</h1>
@@ -257,5 +255,37 @@
         </div>
     </div>
 </body>
+<script>
+    $(document).ready(function() {
+        $('#dataPeserta').hide();
+    });
+
+    $('#send').click( function(){
+        axios.post('/certificate/delete/' + id)
+            .then((response) => {
+                Swal.fire({
+                    title: 'Apakah anda yakin?',
+                    text: "Data yang dihapus tidak akan bisa kembaalikan.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Hapus',
+                    cancelButtonText: 'Batal',
+                    reverseButtons: true
+                }).then((response) => {
+                    location.reload();
+                })
+            }).catch((err) => {
+                Swal.fire({
+                    title: 'Error',
+                    position: 'top-end',
+                    icon: 'error',
+                    text: err,
+                    showConfirmButton: false,
+                    width: '400px',
+                    timer: 1500
+                })
+            })
+    })
+</script>
 
 </html>
