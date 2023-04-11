@@ -117,7 +117,7 @@
     }
 
     function updCertificate(id) {
-        axios.get('/certificate/update/'+id)
+        axios.get('/certificate/update/' + id)
             .then(function(response) {
                 $('.modal-title').html("Update peserta");
                 $('.modal-body').html(response.data);
@@ -129,7 +129,7 @@
     }
 
     function detCertificate(id) {
-        window.location.href = "/certificate/detil/"+id;
+        window.location.href = "/certificate/detil/" + id;
     }
 </script>
 

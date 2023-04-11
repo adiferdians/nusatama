@@ -24,7 +24,8 @@ Route::get('/', [loginController::class, 'index']);
 Route::get('out', [loginController::class, 'out']);
 Route::post('login', [loginController::class, 'Auth']);
 
-Route::get('verification', [verificationController::class, 'index']);
+Route::get('verifikasi', [verificationController::class, 'index']);
+Route::get('verifikasi/{data}', [verificationController::class, 'find']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/dashboard', [dashboardController::class, 'dashboard'])->name('login');
@@ -33,7 +34,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/certificate/send', [CertificateController::class, 'send']);
     Route::get('/certificate/update/{id}', [CertificateController::class, 'getUpdate']);
     Route::get('/certificate/detil/{id}', [CertificateController::class, 'detil']);
-    Route::get('/certificate/qrcode', [CertificateController::class, 'generateQrCode'])->name('generateQrcode');
+    Route::get('/certificate/qrcode/{number}', [CertificateController::class, 'generateQrCode'])->name('generateQrcode');
     Route::post('/certificate/sendUpdate/{id}', [CertificateController::class, 'send']);
     Route::post('/certificate/delete/{id}', [CertificateController::class, 'delete']);
 });

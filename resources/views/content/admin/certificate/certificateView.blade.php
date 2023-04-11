@@ -4,8 +4,8 @@
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4" style="padding-right: 20px;">
     <h1 class="h3 mb-0 text-gray-800"></h1>
-    <a href="/certificate/qrcode" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="QRcode">
-        <i class="fas fa-download fa-sm text-white-50"></i> Generate QRcode</a>
+    <button onclick="showQrCode('{{$certificate[0]['number']}}', '{{$certificate[0]['name']}}')" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm" id="QRcode">
+        <i class="fas fa-eye"></i>   Show QR Code</button>
 </div>
 @foreach($certificate as $cert)
 <div class="certif">
@@ -48,9 +48,31 @@
 </div>
 @endforeach
 <script>
-    $('#back').click(function () { 
+    $('#back').click(function() {
         window.location.href = "/certificate";
-     })
+    })
+
+    function showQrCode(number, name) {
+        axios.get(`/certificate/qrcode/${number}`)
+            .then(function({
+                data
+            }) {
+                $('.modal-title').html(`QR Code ${name}`);
+                $('.modal-body').html(`<div class='text-center'>
+                <div>
+                    <img width='300' height='auto' src='data:image/svg+xml;base64,${data.DATA}' />
+                </div><br>
+                    <div>
+                        <a href='data:image/svg+xml;base64,${data.DATA}' class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm" download>
+                        <i class="fas fa-download"></i>  Download QR Code</a>
+                    </div>
+                </div>`);
+                $('#modalSmall').modal('show');
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+    }
 </script>
 
 @endsection
