@@ -72,21 +72,16 @@ class CertificateController extends Controller
     }
 
 
-    public function generateQrCode()
+    public function generateQrCode($phrase)
     {
         // Generate QR Code
-        $qrCode = QrCode::format('png')
-            ->size(500)
+        $qrCode = QrCode::format('svg')
+            ->size(300)
             ->errorCorrection('H')
-            ->generate("sapi");
+            ->generate($phrase);
 
-        // Set response headers
-        $headers = [
-            'Content-Type' => 'image/png',
-            'Content-Disposition' => 'attachment; filename=qr-code.png',
-        ];
-
-        // Download QR Code
-        return response()->download($qrCode, 'qr-code.png', $headers);
+        return response()->json([
+            'DATA' => base64_encode($qrCode)
+        ]);
     }
 }
