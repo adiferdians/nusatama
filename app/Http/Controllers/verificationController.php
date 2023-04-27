@@ -20,7 +20,7 @@ class verificationController extends Controller
         if ($certificate) {
             return response()->json([
                 'OUT_STAT' => true,
-                'MESSAGE' => 'Success mendapatkan data peserta',
+                'MESSAGE' => 'Berhasil mendapatkan data peserta',
                 'DATA' => $certificate
             ]);
         }

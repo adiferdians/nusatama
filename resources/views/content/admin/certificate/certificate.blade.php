@@ -1,6 +1,7 @@
 @extends('layout.master')
 @section('content')
 @section('certificate', 'active')
+@section('title', 'Certificate')
 
 <div class="container-fluid">
 
@@ -17,16 +18,16 @@
                 <h6 class="m-0 font-weight-bold text-primary">Detil User</h6>
             </div>
             <div>
-                <button class="btn btn-success" id="add" data-toggle="modal" data-target="#modal"><i class="fa fa-plus-square" title="Tambah Data"></i> Tambah Data</button>
+                <button class="btn btn-success" id="add" data-toggle="modal" data-target="#modal"><i class="fa fa-plus-square" title="Tambah Data"></i> Tambah Data Sertifikat</button>
+                <button class="btn btn-success" id="addType" data-toggle="modal" data-target="#modal"><i class="fa fa-plus-square" title="Tambah Data"></i> Tambah Tipe Training</button>
             </div>
         </div>
         <div class="card-body">
-            <div class="table-responsive">
+            <div class="table-responsive" style="overflow: hidden;">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Action</th>
-                            <th>ID</th>
+                            <th class="actionWidth">Action</th>
                             <th>Nama</th>
                             <th>Tipe Trining</th>
                             <th>Title</th>
@@ -39,7 +40,6 @@
                     <tfoot>
                         <tr>
                             <th>Action</th>
-                            <th>ID</th>
                             <th>Nama</th>
                             <th>Tipe Trining</th>
                             <th>Title</th>
@@ -57,7 +57,6 @@
                                 <button class="btn btn-info" title="Detil" id="detil" onclick="detCertificate({{$cert->id}})"><i class="fas fa-eye"></i></button>
                                 <button class="btn btn-danger" title="Hapus" onclick="delCertificate({{$cert->id}})"><i class="fas fa-trash-alt"></i></button>
                             </td>
-                            <td>{{$cert->id}}</td>
                             <td>{{$cert->name}}</td>
                             <td>{{$cert->type}}</td>
                             <td>{{$cert->title}}</td>
@@ -69,6 +68,11 @@
                     </tbody>
                     @endforeach
                 </table>
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ $certificate->appends(Request::all())->links() }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -82,6 +86,18 @@
                     $('.modal-title').html("Tambah peserta");
                     $('.modal-body').html(response.data);
                     $('#myModal').modal('show');
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+        })
+
+        $('#addType').click(function() {
+            axios.get('/type/create')
+                .then(function(response) {
+                    $('.modal-title').html("Tambah peserta");
+                    $('.modal-body').html(response.data);
+                    $('#modalSmall').modal('show');
                 })
                 .catch(function(error) {
                     console.log(error);
