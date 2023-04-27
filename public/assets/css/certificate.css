@@ -55,6 +55,17 @@
 
 .contentVerif {
     display: flex;
+    height: 76vh;
+}
+
+.inverted {
+    filter: invert(100%);
+    padding-left: 25px;
+}
+
+.actionWidth{
+    min-width: 160px;
+    max-width: 160px;
 }
 
 @media (max-width: 767.98px) {

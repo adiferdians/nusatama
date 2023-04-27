@@ -23,13 +23,12 @@
         </td>
     </tr>
     <tr>
-        <td>Trining Mulai</td>
-        <td><input type="date" style="width: 100%" class="input-group-text" type="text" id="start" value="{{$cert->start}}">
-        </td>
-    </tr>
-    <tr>
-        <td>Trining Selesai</td>
-        <td><input type="date" style="width: 100%" class="input-group-text" type="text" id="end" value="{{$cert->end}}">
+        <td>Trining Mulai Dan Training Selesai</td>
+        <td>
+            <div style="display: flex;">
+                <input type="date" style="width: 50%;" class="input-group-text" type="text" id="start" value="{{$cert->start}}">
+                <input type="date" style="width: 50%;" class="input-group-text" type="text" id="end" value="{{$cert->end}}">
+            </div>
         </td>
     </tr>
     <tr>
@@ -57,7 +56,7 @@
         const end = $('#end').val();
         const date = $('#date').val();
 
-        axios.post('/certificate/sendUpdate/'+ id, {
+        axios.post('/certificate/sendUpdate/' + id, {
             name,
             type,
             title,
@@ -88,5 +87,9 @@
                 timer: 1500
             })
         })
+    })
+
+    $('#start').click(function() {
+        console.log('sapi');
     })
 </script>

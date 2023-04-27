@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\certificate;
+use App\Models\type;
+use Carbon\Carbon;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 
@@ -13,7 +16,7 @@ class CertificateController extends Controller
 {
     public function index()
     {
-        $certificate = certificate::all()->sortBy('id');
+        $certificate = certificate::orderBy('id')->paginate(10);
         return view('content.admin.certificate.certificate', [
             'certificate' => $certificate
         ]);
@@ -74,7 +77,6 @@ class CertificateController extends Controller
 
     public function generateQrCode($phrase)
     {
-        // Generate QR Code
         $qrCode = QrCode::format('svg')
             ->size(300)
             ->errorCorrection('H')
@@ -83,5 +85,31 @@ class CertificateController extends Controller
         return response()->json([
             'DATA' => base64_encode($qrCode)
         ]);
+    }
+
+    function createType()
+    {
+        return view("content.admin.certificate.typetraining");
+    }
+
+    public function sendType(Request $request){
+        DB::beginTransaction();
+        try {
+
+            $data[] = [
+                'type' => $request->type,
+                'created_at' => Carbon::now()->toDateTimeString(),
+                'updated_at' => Carbon::now()->toDateTimeString(),
+            ];
+            dd($data);
+            type::insert($data);
+            DB::commit();
+
+            return response()->json(['success' => true, 'message' => 'data berhasil diinputkan', 'data' => $data], 201);
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return response()->json(['success' => false, 'messages' => $e->getMessage()], 400);
+        }
     }
 }
