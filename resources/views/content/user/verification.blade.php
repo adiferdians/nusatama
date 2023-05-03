@@ -41,6 +41,12 @@
                         <div class="card shadow mb-4">
                             <div class="card-body">
                                 <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Nama Peserta" id="nama" aria-label="Nama Peserta" aria-describedby="basic-addon2">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon2"><i class="fa fa-user"></i></span>
+                                    </div>
+                                </div>
+                                <div class="input-group mb-3">
                                     <input type="text" class="form-control" placeholder="Nomor Sertifikat" id="nomor" aria-label="Nomor Sertifikat" aria-describedby="basic-addon2">
                                     <div class="input-group-append">
                                         <span class="input-group-text" id="basic-addon2"><i class="fa fa-id-card"></i></span>
@@ -97,10 +103,10 @@
     $('#send').click(function() {
         let nama = $('#nama').val();
         let nomor = $('#nomor').val();
-
-        axios.post(`/verifikasi/${nomor}`, {
+        let newNumber = nomor.split("/");
+        axios.post(`/verifikasi`, {
             nama,
-            nomor
+            newNumber
         }).then((response) => {
             if (response.data.OUT_STAT) {
                 Swal.fire({

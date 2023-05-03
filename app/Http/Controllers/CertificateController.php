@@ -6,10 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\certificate;
-use App\Models\type;
 use Carbon\Carbon;
 use Validator;
-use phpseclib3\File\ASN1\Maps\Certificate as MapsCertificate;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 
@@ -74,7 +72,18 @@ class CertificateController extends Controller
         $bulan_romawi = '';
         if ($bulan >= 1 && $bulan <= 12) {
             $angka_romawi = [
-                1 => 'I', 2 => 'II', 3 => 'III', 4 => 'IV', 5 => 'V', 6 => 'VI', 7 => 'VII', 8 => 'VIII', 9 => 'IX', 10 => 'X', 11 => 'XI', 12 => 'XII'
+                1 => 'I',
+                2 => 'II',
+                3 => 'III',
+                4 => 'IV',
+                5 => 'V',
+                6 => 'VI',
+                7 => 'VII',
+                8 => 'VIII',
+                9 => 'IX',
+                10 => 'X',
+                11 => 'XI',
+                12 => 'XII'
             ];
             $bulan_romawi = str_repeat('X', intval($bulan / 10)) . $angka_romawi[$bulan % 10];
         }
@@ -83,7 +92,7 @@ class CertificateController extends Controller
         try {
 
             $data = [
-                'name' => $request->name,
+                'name' => strtolower($request->name),
                 'title' => $request->title,
                 'type' => $request->type,
                 'number' => $code . "/" . $kodeType . "/" . $bulan_romawi . "/" . $tahun,
@@ -113,6 +122,50 @@ class CertificateController extends Controller
         ]);
     }
 
+    public function update(Request $request, $id)
+    {
+        $validate = Validator::make($request->all(), [
+            'name'   => 'required',
+            'title'   => 'required',
+            'type'   => 'required',
+            'number' => 'required',
+            'start'   => 'required',
+            'end'   => 'required',
+            'date'   => 'required',
+        ]);
+
+        if ($validate->fails()) {
+            return response()->json([
+                'success' => false,
+                'messages' => $validate->messages()
+            ], 422);
+        }
+        DB::beginTransaction();
+        try {
+
+            $data = [
+                'name' => strtolower($request->name),
+                'title' => $request->title,
+                'type' => $request->type,
+                'number' => $request->number,
+                'start' => $request->start,
+                'end' => $request->end,
+                'date' => $request->date,
+                'created_at' => Carbon::now()->toDateTimeString(),
+                'updated_at' => Carbon::now()->toDateTimeString(),
+            ];
+
+            certificate::where('id', $id)->update($data);
+            DB::commit();
+
+            return response()->json(['success' => true, 'message' => 'Data berhasil diinputkan', 'data' => $data], 201);
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return response()->json(['success' => false, 'messages' => $e->getMessage()], 400);
+        }
+    }
+
     public function detil($id)
     {
         $certificate = certificate::where('id', $id)->get();
@@ -133,7 +186,7 @@ class CertificateController extends Controller
         $qrCode = QrCode::format('svg')
             ->size(300)
             ->errorCorrection('H')
-            ->generate($phrase);
+            ->generate("/verifikasi/".$phrase);
 
         return response()->json([
             'DATA' => base64_encode($qrCode)

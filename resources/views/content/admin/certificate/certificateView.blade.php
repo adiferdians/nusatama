@@ -5,7 +5,7 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4" style="padding-right: 20px;">
     <h1 class="h3 mb-0 text-gray-800"></h1>
     <button onclick="showQrCode('{{$certificate[0]['number']}}', '{{$certificate[0]['name']}}')" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm" id="QRcode">
-        <i class="fas fa-eye"></i>   Show QR Code</button>
+        <i class="fas fa-eye"></i> Show QR Code</button>
 </div>
 @foreach($certificate as $cert)
 <div class="certif">
@@ -53,11 +53,13 @@
     })
 
     function showQrCode(number, name) {
-        axios.get(`/certificate/qrcode/${number}`)
+        let newNumber = number.replace(new RegExp("/", "g"), "");
+        
+        axios.get(`/certificate/qrcode/${newNumber}`)
             .then(function({
                 data
             }) {
-                $('.modal-title').html(`QR Code ${name}`);
+                $('.modal-title').html(`QRCode untuk ${name}`);
                 $('.modal-body').html(`<div class='text-center'>
                 <div>
                     <img width='300' height='auto' src='data:image/svg+xml;base64,${data.DATA}' />
