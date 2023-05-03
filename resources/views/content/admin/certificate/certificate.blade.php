@@ -81,7 +81,7 @@
         $('#add').click(function() {
             axios.get('/certificate/create')
                 .then(function(response) {
-                    $('.modal-title').html("Tambah peserta");
+                    $('.modal-title').html("Tambah Certificate");
                     $('.modal-body').html(response.data);
                     $('#myModal').modal('show');
                 })
@@ -96,7 +96,7 @@
             .then((response) => {
                 Swal.fire({
                     title: 'Apakah anda yakin?',
-                    text: "Data yang dihapus tidak akan bisa kembaalikan.",
+                    text: "Data yang dihapus tidak akan bisa kembalikan.",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Hapus',
@@ -121,7 +121,7 @@
     function updCertificate(id) {
         axios.get('/certificate/update/' + id)
             .then(function(response) {
-                $('.modal-title').html("Update peserta");
+                $('.modal-title').html("Update Certificate");
                 $('.modal-body').html(response.data);
                 $('#myModal').modal('show');
             })
