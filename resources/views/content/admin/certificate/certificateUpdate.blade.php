@@ -88,8 +88,4 @@
             })
         })
     })
-
-    $('#close').click(function() {
-        $('#modalSmall').modal('hide');
-    })
 </script>

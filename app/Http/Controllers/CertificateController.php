@@ -47,6 +47,19 @@ class CertificateController extends Controller
             ], 422);
         }
 
+        $countCertivicate = certificate::count();
+
+        $increment = $countCertivicate;
+        $alphabet = range('A', 'Z');
+        $base = count($alphabet);
+        $number = '';
+        while ($increment > 0) {
+            $remainder = $increment % $base;
+            $number = $alphabet[$remainder] . $number;
+            $increment = ($increment - $remainder) / $base;
+        }
+        $code = str_pad($number, 3, 'A', STR_PAD_LEFT);
+
         if ($request->type == "Public Training") {
             $kodeType = "PT";
         } elseif ($request->type == "Inhouse Training") {
@@ -57,7 +70,6 @@ class CertificateController extends Controller
 
         $bulan = date('m', strtotime($request->date));
         $tahun = date('Y', strtotime($request->date));
-        $initial = "AAA";
 
         $bulan_romawi = '';
         if ($bulan >= 1 && $bulan <= 12) {
@@ -74,7 +86,7 @@ class CertificateController extends Controller
                 'name' => $request->name,
                 'title' => $request->title,
                 'type' => $request->type,
-                'number' => $initial."/". $kodeType. "/". $bulan_romawi. "/". $tahun,
+                'number' => $code . "/" . $kodeType . "/" . $bulan_romawi . "/" . $tahun,
                 'start' => $request->start,
                 'end' => $request->end,
                 'date' => $request->date,
