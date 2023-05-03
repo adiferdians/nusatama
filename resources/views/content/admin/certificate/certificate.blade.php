@@ -14,7 +14,6 @@
     <div class="card shadow mb-4" id="sapi">
         <div class="card-header py-3" style="display: flex; justify-content: space-between;">
             <div>
-                <h6 class="m-0 font-weight-bold text-primary">Detil User</h6>
             </div>
             <div>
                 <button class="btn btn-success" id="add" data-toggle="modal" data-target="#modal"><i class="fa fa-plus-square" title="Tambah Data"></i> Data Sertifikat</button>

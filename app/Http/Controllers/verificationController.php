@@ -13,9 +13,11 @@ class verificationController extends Controller
         return view('content.user.verification');
     }
 
-    public function find($number)
+    public function find(Request $request)
     {
-        $certificate = certificate::where('number', $number)->first();
+        $name = strtolower($request->nama);
+        $newNumber = implode("/", $request->newNumber);
+            $certificate = certificate::where('number', $newNumber)->where('name', $name)->first();
 
         if ($certificate) {
             return response()->json([

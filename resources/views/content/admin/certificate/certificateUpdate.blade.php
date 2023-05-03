@@ -9,7 +9,12 @@
     </tr>
     <tr>
         <td>Tipe Training</td>
-        <td><input type="text" style="width: 100%" class="input-group-text" placeholder="Tipe Trainig" type="text" id="type" value="{{$cert->type}}">
+        <td>
+        <select class="form-control" id="type" style="width: 100%" >
+                <option>Public Training</option>
+                <option>Inhouse Training</option>
+                <option>Custom Training</option>
+            </select>
         </td>
     </tr>
     <tr>
@@ -56,7 +61,7 @@
         const end = $('#end').val();
         const date = $('#date').val();
 
-        axios.post('/certificate/send', {
+        axios.post('/certificate/sendUpdate/' + id, {
             name,
             type,
             title,
