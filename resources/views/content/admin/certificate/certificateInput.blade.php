@@ -5,7 +5,12 @@
     </tr>
     <tr>
         <td>Tipe Training</td>
-        <td><input type="text" style="width: 100%" class="input-group-text" placeholder="Tipe Trainig" type="text" id="type">
+        <td>
+            <select class="form-control" id="type" style="width: 100%" >
+                <option>Public Training</option>
+                <option>Inhouse Training</option>
+                <option>Custom Training</option>
+            </select>
         </td>
     </tr>
     <tr>
@@ -14,23 +19,17 @@
         </td>
     </tr>
     <tr>
-        <td>Nomor Sertifikat</td>
-        <td><input type="text" style="width: 100%" class="input-group-text" placeholder="Nomor Sertifikat" type="text" id="number">
-        </td>
-    </tr>
-    <tr>
-        <td>Trining Mulai</td>
-        <td><input type="date" style="width: 100%" class="input-group-text" type="text" id="start">
-        </td>
-    </tr>
-    <tr>
-        <td>Trining Selesai</td>
-        <td><input type="date" style="width: 100%" class="input-group-text" type="text" id="end">
+    <td>Trining Mulai Dan Training Selesai</td>
+        <td>
+            <div style="display: flex;">
+                <input type="date" style="width: 50%;" class="input-group-text" type="text" id="start">
+                <input type="date" style="width: 50%;" class="input-group-text" type="text" id="end">
+            </div>
         </td>
     </tr>
     <tr>
         <td>Tanggal Sertifikat</td>
-        <td><input type="date" style="width: 100%" class="input-group-text" type="text" id="date">
+        <td><input type="date" style="width: 100%; padding-left: 33%;" class="input-group-text" type="text" id="date">
         </td>
     </tr>
     <tr>
@@ -46,7 +45,6 @@
         const name = $('#name').val();
         const type = $('#type').val();
         const title = $('#title').val();
-        const number = $('#number').val();
         const start = $('#start').val();
         const end = $('#end').val();
         const date = $('#date').val();
@@ -55,7 +53,6 @@
             name,
             type,
             title,
-            number,
             start,
             end,
             date

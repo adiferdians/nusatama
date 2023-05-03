@@ -7,8 +7,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+        <h1 class="h3 mb-0 text-gray-800">Certificate</h1>
     </div>
 
     <!-- Content Row -->
@@ -18,8 +17,7 @@
                 <h6 class="m-0 font-weight-bold text-primary">Detil User</h6>
             </div>
             <div>
-                <button class="btn btn-success" id="add" data-toggle="modal" data-target="#modal"><i class="fa fa-plus-square" title="Tambah Data"></i> Tambah Data Sertifikat</button>
-                <button class="btn btn-success" id="addType" data-toggle="modal" data-target="#modal"><i class="fa fa-plus-square" title="Tambah Data"></i> Tambah Tipe Training</button>
+                <button class="btn btn-success" id="add" data-toggle="modal" data-target="#modal"><i class="fa fa-plus-square" title="Tambah Data"></i> Data Sertifikat</button>
             </div>
         </div>
         <div class="card-body">
@@ -86,18 +84,6 @@
                     $('.modal-title').html("Tambah peserta");
                     $('.modal-body').html(response.data);
                     $('#myModal').modal('show');
-                })
-                .catch(function(error) {
-                    console.log(error);
-                });
-        })
-
-        $('#addType').click(function() {
-            axios.get('/type/create')
-                .then(function(response) {
-                    $('.modal-title').html("Tambah peserta");
-                    $('.modal-body').html(response.data);
-                    $('#modalSmall').modal('show');
                 })
                 .catch(function(error) {
                     console.log(error);

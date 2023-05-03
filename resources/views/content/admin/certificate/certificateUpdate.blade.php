@@ -33,7 +33,7 @@
     </tr>
     <tr>
         <td>Tanggal Sertifikat</td>
-        <td><input type="date" style="width: 100%" class="input-group-text" type="text" id="date" value="{{$cert->date}}">
+        <td><input type="date" style="width: 100%; padding-left: 33%;" class="input-group-text" type="text" id="date" value="{{$cert->date}}">
         </td>
     </tr>
     <tr>
@@ -56,7 +56,7 @@
         const end = $('#end').val();
         const date = $('#date').val();
 
-        axios.post('/certificate/sendUpdate/' + id, {
+        axios.post('/certificate/send', {
             name,
             type,
             title,
@@ -89,7 +89,7 @@
         })
     })
 
-    $('#start').click(function() {
-        console.log('sapi');
+    $('#close').click(function() {
+        $('#modalSmall').modal('hide');
     })
 </script>
