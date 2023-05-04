@@ -57,6 +57,7 @@
         const type = $('#type').val();
         const title = $('#title').val();
         const number = $('#number').val();
+        const number_convert = number.replace(new RegExp("/", "g"), "");
         const start = $('#start').val();
         const end = $('#end').val();
         const date = $('#date').val();
@@ -66,6 +67,7 @@
             type,
             title,
             number,
+            number_convert,
             start,
             end,
             date

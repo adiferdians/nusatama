@@ -19,8 +19,7 @@ class loginController extends Controller
     {
 
         $date = Carbon::now()->format('H:i:s');
-        $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($request->only('email', 'password'))) {
             $user = Auth::user();
             session()->put('name', $user->name);
             $token =  $user->createToken($date)->accessToken;
@@ -32,18 +31,20 @@ class loginController extends Controller
 
             return response()->json([
                 'OUT_STAT' => true,
-                'MESSAGE' => 'You have successfully logged in to your account.',
+                'MESSAGE' => 'Anda berhasil login.',
                 'DATA' => $response,
             ]);
         } else {
-            return response()->json(['MESSAGE' => 'Invalid login credentials']);
+            return response()->json(['MESSAGE' => 'Data yang anda masukan tidak Valid']);
         }
     }
 
     public function out(Request $request)
     {
         Auth::logout();
-        $request->user()->currentAccessToken()->delete();
-        return Redirect('/');
+        return response()->json([
+            'OUT_STAT' => true,
+            'MESSAGE' => 'Anda berhasil Log Out.',
+        ]);
     }
 }
