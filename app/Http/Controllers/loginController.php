@@ -40,10 +40,10 @@ class loginController extends Controller
         }
     }
 
-    public function out()
+    public function out(Request $request)
     {
         Auth::logout();
-
+        $request->user()->currentAccessToken()->delete();
         return Redirect('/');
     }
 }

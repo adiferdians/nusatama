@@ -16,19 +16,16 @@ use App\Http\Controllers\verificationController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-// Route::post('login', [loginController::class, 'Auth'])->middleware("throttle:3,2");
-Route::get('register', [registerController::class, 'index']);
-Route::post('send', [registerController::class, 'register']);
-Route::get('/', [loginController::class, 'index']);
+Route::get('/', [loginController::class, 'index'])->middleware(['guest'])->name('login');
 Route::get('out', [loginController::class, 'out']);
-Route::post('login', [loginController::class, 'Auth']);
+Route::post('login', [loginController::class, 'Auth'])
+->middleware("throttle:3,2");
 
 Route::get('verifikasi', [verificationController::class, 'index']);
 Route::post('verifikasi', [verificationController::class, 'find']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('/dashboard', [dashboardController::class, 'dashboard'])->name('login');
+    Route::get('/dashboard', [dashboardController::class, 'dashboard']);
     Route::get('/certificate', [CertificateController::class, 'index']);
     Route::get('/certificate/create', [CertificateController::class, 'create']);
     Route::post('/certificate/send', [CertificateController::class, 'send']);
