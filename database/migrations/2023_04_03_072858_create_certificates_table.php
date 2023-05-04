@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('type');
             $table->string('title');
             $table->string('number');
+            $table->string('number_convert');
             $table->string('start');
             $table->string('end');
             $table->string('date');

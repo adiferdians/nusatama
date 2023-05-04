@@ -18,10 +18,11 @@ use App\Http\Controllers\verificationController;
 */
 Route::get('/', [loginController::class, 'index'])->middleware(['guest'])->name('login');
 Route::get('out', [loginController::class, 'out']);
-Route::post('login', [loginController::class, 'Auth'])
-->middleware("throttle:3,2");
+Route::post('login', [loginController::class, 'Auth']);
+// ->middleware("throttle:3,2");
 
 Route::get('verifikasi', [verificationController::class, 'index']);
+Route::get('verifikasi/{number}', [verificationController::class, 'indexSpecific']);
 Route::post('verifikasi', [verificationController::class, 'find']);
 
 Route::middleware(['auth:sanctum'])->group(function () {

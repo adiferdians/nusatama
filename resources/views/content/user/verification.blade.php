@@ -23,7 +23,6 @@
     <link href="{{ URL::asset('/assets/css/certificate.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('/assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
 </head>
-
 <body>
     <div id="wrapper">
         <div id="content-wrapper" class="d-flex flex-column">
@@ -79,6 +78,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @if(isset($certificate))
+                                        <tr>
+                                            <td>{{$certificate[0]['name']}}</td>
+                                            <td>{{$certificate[0]['type']}}</td>
+                                            <td>{{$certificate[0]['title']}}</td>
+                                            <td>{{$certificate[0]['number']}}</td>
+                                            <td>{{$certificate[0]['start']}}</td>
+                                            <td>{{$certificate[0]['end']}}</td>
+                                            <td>{{$certificate[0]['date']}}</td>
+                                        </tr>
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>

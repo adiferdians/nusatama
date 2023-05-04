@@ -13,11 +13,19 @@ class verificationController extends Controller
         return view('content.user.verification');
     }
 
+    public function indexSpecific($num)
+    {
+        $certificate = certificate::where('number_convert', $num)->get();
+        return view('content.user.verification', [
+            'certificate' => $certificate
+        ]);
+    }
+
     public function find(Request $request)
     {
         $name = strtolower($request->nama);
         $newNumber = implode("/", $request->newNumber);
-            $certificate = certificate::where('number', $newNumber)->where('name', $name)->first();
+        $certificate = certificate::where('number', $newNumber)->where('name', $name)->first();
 
         if ($certificate) {
             return response()->json([

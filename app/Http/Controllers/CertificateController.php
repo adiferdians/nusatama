@@ -96,6 +96,7 @@ class CertificateController extends Controller
                 'title' => $request->title,
                 'type' => $request->type,
                 'number' => $code . "/" . $kodeType . "/" . $bulan_romawi . "/" . $tahun,
+                'number_convert' => $code.$kodeType.$bulan_romawi.$tahun,
                 'start' => $request->start,
                 'end' => $request->end,
                 'date' => $request->date,
@@ -148,6 +149,7 @@ class CertificateController extends Controller
                 'title' => $request->title,
                 'type' => $request->type,
                 'number' => $request->number,
+                'number_convert' => $request->number_convert,
                 'start' => $request->start,
                 'end' => $request->end,
                 'date' => $request->date,
@@ -186,7 +188,7 @@ class CertificateController extends Controller
         $qrCode = QrCode::format('svg')
             ->size(300)
             ->errorCorrection('H')
-            ->generate("/verifikasi/".$phrase);
+            ->generate(url("/verifikasi/".$phrase));
 
         return response()->json([
             'DATA' => base64_encode($qrCode)
